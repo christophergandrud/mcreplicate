@@ -1,21 +1,16 @@
 #' Multi-core replicate.
 #'
-#' Use multiple cores for repeated evaluation of an expression. This also works on Windows using a parallel socket cluster (see notes below regarding Windows-specific usage).
+#' Use multiple cores for repeated evaluation of an expression. This also works on Windows using a parallel socket cluster (see below regarding Windows-specific usage).
 #'
-#' @usage mc_replicate(n, expr, simplify = "array", mc.cores = detectCores(), ...)
+#' @usage mc_replicate(n, expr, simplify = "array", mc.cores = detectCores(), varlist, envir, packages)
 #'
 #' @param n integer; the number of replications.
 #' @param expr the expression (a language object, usually a call) to evaluate repeatedly.
 #' @param simplify logical or character string. See \link[base]{sapply} for more information.
 #' @param mc.cores number of cores to use.
-#' @param ... additional parameters for usage on Windows.
-#'
-#' @note On Windows, variables and packages needed for code execution must be explicitely specified. By default, all loaded packages are also loaded on the cluster's workers, and all variables from the current environment which do not start with a "." are exported. Use the following optional arguments to control how to populate each worker's environment:
-#' \describe{
-#'   \item{packages}{character vector of packages to require for each worker.}
-#'   \item{varlist}{character vector of variable names to export on each worker. See \link[parallel]{clusterExport} for more information.}
-#'   \item{envir}{Environment from which  to export variables. See \link[parallel]{clusterExport} for more information.}
-#' }
+#' @param varlist Only used on Windows. character vector of variable names to export on each worker. Default is all variables in the current environment which do not begin with a ".". See \link[parallel]{clusterExport} for more information.
+#' @param envir Only used on Windows. Environment from which  to export variables. Default is the environment from which this function was called. See \link[parallel]{clusterExport} for more information.
+#' @param packages Only used on Windows. Environment from which  to export variables. Default is all loaded packages. See \link[parallel]{clusterExport} for more information.
 #'
 #' @examples
 #' one_sim <- function(n = 100, control_prob = 0.1, rel_effect = 0.01) {
@@ -36,7 +31,7 @@
 #' @importFrom parallel mclapply detectCores makePSOCKcluster clusterExport parLapply stopCluster clusterEvalQ
 #' @importFrom utils sessionInfo
 #' @export
-mc_replicate <- function(n, expr, simplify = "array", mc.cores = detectCores(), ...) {
+mc_replicate <- function(n, expr, simplify = "array", mc.cores = detectCores(), varlist, envir, packages) {
     # check if windows and set cores to 1
     if (.Platform$OS.type == "windows" && mc.cores > 1) {
         cat("Running parallel code on Windows: a parallel socket cluster will be used.")
