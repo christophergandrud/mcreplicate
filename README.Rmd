@@ -49,7 +49,7 @@ diff_means
 ### Windows users
 
 On Windows, **mcreplicate** relies on a parallel socket cluster backend. This requires the user to explicitely specify which packages and variables should be used to populate the workers' environments. By default, **mcreplicate** attaches all currently loaded packages and all variables from the current environment which do not start with a ".". This can be changed using the `packages`, `varlist` and `envir` optional arguments. You can learn more on the function's help file.
-
+ 
 #### Example
 
 ```{r, eval=FALSE}
