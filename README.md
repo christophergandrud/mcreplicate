@@ -30,7 +30,7 @@ replications on multiple cores
 library(mcreplicate)
 
 # Function to replicate
-one_sim <- function(n, control_prob, rel_effect) {
+one_sim <- function(n = 100, control_prob = 0.1, rel_effect = 0.01) {
   treat_prob <- control_prob + (control_prob * rel_effect)
     
   cy <- rbinom(n = n, size = 1, prob = control_prob)
@@ -39,13 +39,10 @@ one_sim <- function(n, control_prob, rel_effect) {
   mean(ty) - mean(cy)
 }
 
-diff_means <- mc_replicate(10, one_sim(n = 100, control_prob = 0.1, 
-                                      rel_effect = 0.01))
-
-diff_means
+mc_replicate(10, one_sim())
 ```
 
-    ##  [1]  0.04 -0.01  0.00 -0.02  0.02 -0.05 -0.02 -0.04 -0.01  0.06
+    ##  [1]  0.06  0.03  0.07  0.02  0.03 -0.05  0.00 -0.03 -0.03 -0.10
 
 ### Windows users
 

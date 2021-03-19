@@ -31,7 +31,7 @@ remotes::install_github("christophergandrud/mcreplicate")
 library(mcreplicate)
 
 # Function to replicate
-one_sim <- function(n, control_prob, rel_effect) {
+one_sim <- function(n = 100, control_prob = 0.1, rel_effect = 0.01) {
   treat_prob <- control_prob + (control_prob * rel_effect)
     
   cy <- rbinom(n = n, size = 1, prob = control_prob)
@@ -40,10 +40,7 @@ one_sim <- function(n, control_prob, rel_effect) {
   mean(ty) - mean(cy)
 }
 
-diff_means <- mc_replicate(10, one_sim(n = 100, control_prob = 0.1, 
-                                      rel_effect = 0.01))
-
-diff_means
+mc_replicate(10, one_sim())
 ```
 
 ### Windows users
