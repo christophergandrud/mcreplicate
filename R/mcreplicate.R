@@ -20,7 +20,12 @@
 #' @export
 
 mc_replicate <- function(n, expr, refresh = 0.1, mc.cores = 2) {
-    # require(parallel)
+    # check if windows and set cores to 1
+    if (.Platform$OS.type == "windows") {
+        mc.cores <- 1
+        message("Only 1 core is supported on Windows.\nRunning sequentially.")
+    }
+
     show_progress <- function(i) {
         intervaln <- floor(n * refresh)
         if (floor(i/intervaln) == i/intervaln) {
