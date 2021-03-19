@@ -15,6 +15,8 @@ requires installing [rstan](https://cran.r-project.org/package=rstan),
 which can be a hurdle, while also not adding capabilities to this
 function.
 
+**Note:** multi-core support is not available on Windows.
+
 ## Installation
 
 Install the package from GitHub:
@@ -42,7 +44,7 @@ one_sim <- function(n, control_prob, rel_effect) {
   mean(ty) - mean(cy)
 }
 
-diff_means <- mcreplicate(10, one_sim(n = 100, control_prob = 0.1, 
+diff_means <- mc_replicate(10, one_sim(n = 100, control_prob = 0.1, 
                                       rel_effect = 0.01))
 ```
 
@@ -50,4 +52,4 @@ diff_means <- mcreplicate(10, one_sim(n = 100, control_prob = 0.1,
 diff_means
 ```
 
-    ##  [1]  0.08  0.05 -0.03 -0.01  0.07 -0.01  0.03 -0.02 -0.05  0.04
+    ##  [1]  0.02 -0.03 -0.01 -0.05 -0.08  0.05 -0.04  0.01  0.01  0.00
