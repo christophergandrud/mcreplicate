@@ -2,7 +2,7 @@
 #'
 #' Use multiple cores for repeated evaluation of an expression. This also works on Windows using a parallel socket cluster (see below regarding Windows-specific usage).
 #'
-#' @usage mc_replicate(n, expr, simplify = "array", mc.cores = detectCores(), varlist, envir, packages)
+#' @usage mc_replicate(n, expr, simplify = "array", mc.cores = detectCores(), varlist = FALSE, envir = FALSE, packages = FALSE)
 #'
 #' @param n integer; the number of replications.
 #' @param expr the expression (a language object, usually a call) to evaluate repeatedly.
@@ -31,22 +31,22 @@
 #' @importFrom parallel mclapply detectCores makePSOCKcluster clusterExport parLapply stopCluster clusterEvalQ
 #' @importFrom utils sessionInfo
 #' @export
-mc_replicate <- function(n, expr, simplify = "array", mc.cores = detectCores(), varlist, envir, packages) {
+mc_replicate <- function(n, expr, simplify = "array", mc.cores = detectCores(), varlist=FALSE, envir=FALSE, packages=FALSE) {
     # check if windows and set cores to 1
     if (.Platform$OS.type == "windows" && mc.cores > 1) {
         cat("Running parallel code on Windows: a parallel socket cluster will be used.\n")
         cat("Variables and packages needed for code execution must be explicitely specified. See the help file for more information and current defaults.\n")
 
         # Default exports
-        if (missing(varlist)) {
+        if (isFALSE(varlist)) {
             varlist = ls(envir=parent.frame())
             print("varlist")
             print(varlist)
         }
-        if (missing(envir)) {
+        if (isFALSE(envir)) {
             envir = parent.frame()
         }
-        if (missing(packages)) {
+        if (isFALSE(packages)) {
             packages = c(sessionInfo()$basePkgs, names(sessionInfo()$otherPkgs))
         }
 
