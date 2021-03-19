@@ -15,6 +15,8 @@ requires installing [rstan](https://cran.r-project.org/package=rstan),
 which can be a hurdle, while also not adding capabilities to this
 function.
 
+**Note**: multi-core support is not available on Windows.
+
 ## Installation
 
 Install the package from GitHub:
