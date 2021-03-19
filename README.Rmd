@@ -44,7 +44,7 @@ one_sim <- function(n, control_prob, rel_effect) {
   mean(ty) - mean(cy)
 }
 
-diff_means <- mcreplicate(10, one_sim(n = 100, control_prob = 0.1, 
+diff_means <- mc_replicate(10, one_sim(n = 100, control_prob = 0.1, 
                                       rel_effect = 0.01))
 
 diff_means

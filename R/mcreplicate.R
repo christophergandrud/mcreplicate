@@ -14,13 +14,12 @@
 #'   mean(ty) - mean(cy)
 #'   }
 #'
-#'   diff_means <- mcreplicate(10, one_sim(n = 100, control_prob = 0.1,
-#'                                         rel_effect = 0.01))
+#'   mc_replicate(10, one_sim(n = 100, control_prob = 0.1, rel_effect = 0.01))
 #'
 #' @importFrom parallel mclapply
 #' @export
 
-mcreplicate <- function(n, expr, refresh = 0.1, mc.cores = 2) {
+mc_replicate <- function(n, expr, refresh = 0.1, mc.cores = 2) {
     # require(parallel)
     show_progress <- function(i) {
         intervaln <- floor(n * refresh)
