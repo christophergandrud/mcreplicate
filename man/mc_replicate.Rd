@@ -2,32 +2,47 @@
 % Please edit documentation in R/mcreplicate.R
 \name{mc_replicate}
 \alias{mc_replicate}
-\title{Multi-core replicate. From the rethinking package:
-<https://github.com/rmcelreath/rethinking/blob/3b48ec8dfda4840b9dce096d0cb9406589ef7923/R/utilities.r#L206>}
+\title{Multi-core replicate.}
 \usage{
-mc_replicate(n, expr, refresh = 0.1, mc.cores = 2)
+mc_replicate(n, expr, mc.cores, simplify = "array", ...)
 }
 \arguments{
-\item{n}{integer: the number of replications.}
+\item{n}{integer; the number of replications.}
 
 \item{expr}{the expression (a language object, usually a call) to evaluate repeatedly.}
 
-\item{refresh}{status update refresh interval}
+\item{simplify}{logical or character string. See \link[base]{sapply} for more information.}
 
-\item{mc.cores}{number of cores to use}
+\item{mc.cores}{number of cores to use.}
+
+\item{...}{additional parameters for usage on Windows.}
 }
 \description{
-Multi-core replicate. From the rethinking package:
-<https://github.com/rmcelreath/rethinking/blob/3b48ec8dfda4840b9dce096d0cb9406589ef7923/R/utilities.r#L206>
+Use multiple cores for repeated evaluation of an expression. This also works on Windows using a parallel socket cluster (see notes below regarding Windows-specific usage).
+}
+\note{
+On Windows, variables and packages needed for code execution must be explicitely specified. By default, all loaded packages are also loaded on the cluster's workers, and all variables from the current environment which do not start with a "." are exported. Use the following optional arguments to control how to populate each worker's environment:
+\describe{
+  \item{packages}{character vector of packages to require for each worker.}
+  \item{varlist}{character vector of variable names to export on each worker. See \link[parallel]{clusterExport} for more information.}
+  \item{envir}{Environment from which  to export variables. See \link[parallel]{clusterExport} for more information.}
+}
 }
 \examples{
-one_sim <- function(n, control_prob, rel_effect) {
+one_sim <- function(n = 100, control_prob = 0.1, rel_effect = 0.01) {
   treat_prob <- control_prob + (control_prob * rel_effect)
   cy <- rbinom(n = n, size = 1, prob = control_prob)
   ty <- rbinom(n = n, size = 1, prob = treat_prob)
   mean(ty) - mean(cy)
   }
 
-  mc_replicate(10, one_sim(n = 100, control_prob = 0.1, rel_effect = 0.01))
+  mc_replicate(10, one_sim())
 
+  # On Windows, when no particular packages or variables are needed:
+  mc_replicate(10, one_sim(), packages = NULL, varlist = NULL)
+
+}
+\references{
+This is inspired from the rethinking package:
+<https://github.com/rmcelreath/rethinking/blob/3b48ec8dfda4840b9dce096d0cb9406589ef7923/R/utilities.r#L206
 }
