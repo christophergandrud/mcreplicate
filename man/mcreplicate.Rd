@@ -20,3 +20,15 @@ mcreplicate(n, expr, refresh = 0.1, mc.cores = 2)
 Multi-core replicate. From the rethinking package:
 <https://github.com/rmcelreath/rethinking/blob/3b48ec8dfda4840b9dce096d0cb9406589ef7923/R/utilities.r#L206>
 }
+\examples{
+one_sim <- function(n, control_prob, rel_effect) {
+  treat_prob <- control_prob + (control_prob * rel_effect)
+  cy <- rbinom(n = n, size = 1, prob = control_prob)
+  ty <- rbinom(n = n, size = 1, prob = treat_prob)
+  mean(ty) - mean(cy)
+  }
+
+  diff_means <- mcreplicate(10, one_sim(n = 100, control_prob = 0.1,
+                                        rel_effect = 0.01))
+
+}
