@@ -13,4 +13,29 @@ which can be a hurdle, while also not adding capabilities to this function.
 
 ## Installation
 
+Install the package from GitHub:
 
+```r
+xfun::pkg_attach2("remotes")
+
+install_github("christophergandrud/mcreplicate")
+```
+
+## Use
+
+It works just like `replicate()`, but distributes the replications.
+
+```r
+# Function to replicate
+one_sim <- function(n, control_prob, rel_effect) {
+  treat_prob <- control_prob + (control_prob * rel_effect)
+    
+  cy <- rbinom(n = n, size = 1, prob = control_prob)
+  ty <- rbinom(n = n, size = 1, prob = treat_prob)
+  
+  mean(ty) - mean(cy)
+}
+
+diff_means <- mcreplicate(10, one_sim(n = 100, control_prob = 0.1, 
+                                      rel_effect = 0.01))
+```
