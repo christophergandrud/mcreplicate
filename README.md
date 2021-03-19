@@ -1,5 +1,5 @@
 
-# mcreplicate: multi-core replications
+# mcreplicate: Multi-Core Replications
 
 <!-- badges: start -->
 
@@ -45,7 +45,7 @@ diff_means <- mc_replicate(10, one_sim(n = 100, control_prob = 0.1,
 diff_means
 ```
 
-    ##  [1] -0.04 -0.03  0.00  0.04 -0.03 -0.05  0.02 -0.03 -0.02  0.09
+    ##  [1] -0.03 -0.04  0.00 -0.10 -0.02 -0.07 -0.01 -0.05 -0.04  0.03
 
 ### Windows users
 
@@ -62,28 +62,14 @@ arguments. You can learn more on the function’s help file.
 ``` r
 k = 2
 
-# The following works as intended, since the variable "k" is exported by default to each worker.
+# The following works as intended, since the variable "k" is exported by 
+# default to each worker.
 mc_replicate(10, rnorm(k))
-```
 
-    ##            [,1]       [,2]       [,3]       [,4]      [,5]      [,6]       [,7]
-    ## [1,] -1.0895637 -0.9291322 -2.2835993 -0.1549158 0.8148598 0.9499048 -0.1366499
-    ## [2,] -0.7789176  0.4655108  0.8965296  1.0131903 0.6792686 0.4009201 -1.2437706
-    ##           [,8]        [,9]       [,10]
-    ## [1,] 0.6370209 -0.85375635 -0.09725082
-    ## [2,] 0.6277709  0.04385849  1.38561286
-
-``` r
-# For a reduced overhead, you can specify to *only* export the variable "k" from the current environment and to not load any particular package.
+# For a reduced overhead, you can specify to *only* export the variable "k" 
+# from the current environment and to not load any particular package.
 mc_replicate(10, rnorm(k), packages=NULL, varlist=c("k"), envir=environment())
 ```
-
-    ##             [,1]       [,2]       [,3]       [,4]       [,5]       [,6]
-    ## [1,]  0.09733941  0.1128511  0.4345149  0.5349322  0.3969553  0.5870589
-    ## [2,] -1.04747904 -0.2757685 -1.1179181 -0.5689403 -1.7737434 -1.9930214
-    ##            [,7]       [,8]      [,9]     [,10]
-    ## [1,] -0.7326846 -0.1059534 0.3731130  1.307534
-    ## [2,]  0.7220340  1.1426576 0.6124631 -1.013255
 
 ## References
 

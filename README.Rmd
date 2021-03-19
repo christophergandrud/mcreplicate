@@ -4,7 +4,7 @@ output:
     html_preview: false
 ---
 
-# mcreplicate: multi-core replications
+# mcreplicate: Multi-Core Replications
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
@@ -52,13 +52,15 @@ On Windows, **mcreplicate** relies on a parallel socket cluster backend. This re
 
 #### Example
 
-```{r}
+```{r, eval=FALSE}
 k = 2
 
-# The following works as intended, since the variable "k" is exported by default to each worker.
+# The following works as intended, since the variable "k" is exported by 
+# default to each worker.
 mc_replicate(10, rnorm(k))
 
-# For a reduced overhead, you can specify to *only* export the variable "k" from the current environment and to not load any particular package.
+# For a reduced overhead, you can specify to *only* export the variable "k" 
+# from the current environment and to not load any particular package.
 mc_replicate(10, rnorm(k), packages=NULL, varlist=c("k"), envir=environment())
 ```
 
