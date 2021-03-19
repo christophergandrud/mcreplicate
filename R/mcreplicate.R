@@ -25,10 +25,10 @@
 #'   mean(ty) - mean(cy)
 #'   }
 #'
-#'   mc_replicate(10, one_sim())
+#'   mc_replicate(10, one_sim(), mc.cores = 2)
 #'
 #'   # On Windows, when no particular packages or variables are needed:
-#'   mc_replicate(10, one_sim(), packages = NULL, varlist = NULL)
+#'   mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL, varlist = NULL)
 #'
 #' @references This is inspired from the rethinking package:
 #' <https://github.com/rmcelreath/rethinking/blob/3b48ec8dfda4840b9dce096d0cb9406589ef7923/R/utilities.r#L206
