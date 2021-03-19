@@ -66,5 +66,5 @@ mc_replicate(10, rnorm(k), packages=NULL, varlist=c("k"), envir=environment())
 
 ## References
 
-This is inspired by the `mcreplicate` function from the [rethinking](https://github.com/rmcelreath/rethinking) package.
+This is inspired by the `mcreplicate` function from the [rethinking](https://github.com/rmcelreath/rethinking) package. We added Windows support and we provide a lightweight package.
 

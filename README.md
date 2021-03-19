@@ -45,7 +45,7 @@ diff_means <- mc_replicate(10, one_sim(n = 100, control_prob = 0.1,
 diff_means
 ```
 
-    ##  [1] -0.03 -0.04  0.00 -0.10 -0.02 -0.07 -0.01 -0.05 -0.04  0.03
+    ##  [1]  0.03 -0.06 -0.01 -0.05 -0.01  0.01  0.00 -0.04 -0.02 -0.07
 
 ### Windows users
 
@@ -74,4 +74,5 @@ mc_replicate(10, rnorm(k), packages=NULL, varlist=c("k"), envir=environment())
 ## References
 
 This is inspired by the `mcreplicate` function from the
-[rethinking](https://github.com/rmcelreath/rethinking) package.
+[rethinking](https://github.com/rmcelreath/rethinking) package. We added
+Windows support and we provide a lightweight package.
