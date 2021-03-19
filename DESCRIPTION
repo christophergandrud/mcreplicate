@@ -1,7 +1,8 @@
 Package: mcreplicate
 Description: Multi-core replication to make Monte Carlo simulation
   faster more easily. Based on the mcreplicate function from the rethinking
-  package.
+  package. The rethinking package requires installing rstan, which can be a 
+  hurdle, while also not adding capabilities to this function.
 Title: Multi-core replicate
 Version: 0.1.0
 Date: 2021-03-19
