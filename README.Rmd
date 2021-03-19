@@ -31,7 +31,7 @@ install_github("christophergandrud/mcreplicate")
 
 ## Use
 
-It works just like `replicate()`, but distributes the replications.
+`mc_replicate()` works just like `replicate()`, but distributes the replications.
 
 ```{r}
 library(mcreplicate)
