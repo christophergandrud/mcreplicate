@@ -4,6 +4,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/christophergandrud/mcreplicate/workflows/R-CMD-check/badge.svg)](https://github.com/christophergandrud/mcreplicate/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/christophergandrud/mcreplicate/branch/main/graph/badge.svg)](https://codecov.io/gh/christophergandrud/mcreplicate?branch=main)
 <!-- badges: end -->
 
 ## Purpose
@@ -53,4 +55,4 @@ diff_means <- mc_replicate(10, one_sim(n = 100, control_prob = 0.1,
 diff_means
 ```
 
-    ##  [1] -0.01  0.02  0.08  0.02  0.07 -0.01 -0.02  0.01  0.01  0.06
+    ##  [1] -0.04  0.03  0.02  0.07  0.02  0.03  0.00 -0.04  0.00 -0.01
