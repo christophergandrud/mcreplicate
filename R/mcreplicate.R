@@ -22,8 +22,8 @@
 #'
 #'   mc_replicate(10, one_sim(), mc.cores = 2)
 #'
-#'   # On Windows, when no particular packages or variables are needed:
-#'   mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL, varlist = NULL)
+#'   # On Windows, when no particular packages or additional variables are needed
+#'   mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL, varlist = "one_sim", envir = environment())
 #'
 #' @references This is inspired from the rethinking package:
 #' <https://github.com/rmcelreath/rethinking/blob/3b48ec8dfda4840b9dce096d0cb9406589ef7923/R/utilities.r#L206
@@ -31,7 +31,7 @@
 #' @importFrom parallel mclapply detectCores makePSOCKcluster clusterExport parLapply stopCluster clusterEvalQ
 #' @importFrom utils sessionInfo
 #' @export
-mc_replicate <- function(n, expr, simplify = "array", mc.cores = detectCores(), varlist=FALSE, envir=FALSE, packages=FALSE) {
+mc_replicate <- function(n, expr, simplify = "array", mc.cores = detectCores(), varlist = FALSE, envir = FALSE, packages = FALSE) {
     # check if windows and set cores to 1
     if (.Platform$OS.type == "windows" && mc.cores > 1) {
         cat("Running parallel code on Windows: a parallel socket cluster will be used.\n")

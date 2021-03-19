@@ -34,8 +34,8 @@ one_sim <- function(n = 100, control_prob = 0.1, rel_effect = 0.01) {
 
   mc_replicate(10, one_sim(), mc.cores = 2)
 
-  # On Windows, when no particular packages or variables are needed:
-  mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL, varlist = NULL)
+  # On Windows, when no particular packages or additional variables are needed
+  mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL, varlist = "one_sim", envir = environment())
 
 }
 \references{
