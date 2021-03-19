@@ -15,7 +15,7 @@
 #'   }
 #'
 #'   diff_means <- mcreplicate(10, one_sim(n = 100, control_prob = 0.1,
-#'                                         rel_effect = 0.01))
+#'                                         rel_effect = 0.01) mc.cores = 1)
 #'
 #' @importFrom parallel mclapply
 #' @export
