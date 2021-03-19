@@ -34,8 +34,8 @@
 mc_replicate <- function(n, expr, simplify = "array", mc.cores = detectCores(), varlist, envir, packages) {
     # check if windows and set cores to 1
     if (.Platform$OS.type == "windows" && mc.cores > 1) {
-        cat("Running parallel code on Windows: a parallel socket cluster will be used.")
-        cat("Variables and packages needed for code execution must be explicitely specified. See the help file for more information and current defaults.")
+        cat("Running parallel code on Windows: a parallel socket cluster will be used.\n")
+        cat("Variables and packages needed for code execution must be explicitely specified. See the help file for more information and current defaults.\n")
 
         # Default exports
         if (missing(varlist)) {
@@ -56,6 +56,7 @@ mc_replicate <- function(n, expr, simplify = "array", mc.cores = detectCores(), 
         clusterEvalQ(cl, sapply(.mcreplicate.loaded.packages, function(package) require(package)))
 
         # Export variables
+        print(varlist)
         clusterExport(cl = cl, varlist = varlist, envir = envir)
 
         result <- parLapply(cl = cl, 1:n, function(i) eval(substitute(expr)))
