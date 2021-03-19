@@ -50,12 +50,13 @@ mc_replicate <- function(n, expr, simplify = "array", mc.cores = detectCores(), 
             envir = parent.frame()
         }
         if (missing(packages)) {
-            .mcreplicate.loaded.packages = c(sessionInfo()$basePkgs, names(sessionInfo()$otherPkgs))
-        } else .mcreplicate.loaded.packages = packages
+            packages = c(sessionInfo()$basePkgs, names(sessionInfo()$otherPkgs))
+        }
 
         cl <- parallel::makePSOCKcluster(mc.cores)
 
         # Export packages
+        .mcreplicate.loaded.packages = packages
         clusterExport(cl = cl, varlist = ".mcreplicate.loaded.packages", envir=environment())
         clusterEvalQ(cl, sapply(.mcreplicate.loaded.packages, function(package) require(package)))
 
