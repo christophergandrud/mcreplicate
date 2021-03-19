@@ -42,7 +42,7 @@ one_sim <- function(n = 100, control_prob = 0.1, rel_effect = 0.01) {
 mc_replicate(10, one_sim())
 ```
 
-    ##  [1]  0.06  0.03  0.07  0.02  0.03 -0.05  0.00 -0.03 -0.03 -0.10
+    ##  [1]  0.02 -0.03  0.00  0.01  0.12  0.09 -0.01  0.04 -0.01 -0.02
 
 ### Windows users
 
@@ -59,7 +59,7 @@ arguments. You can learn more on the function’s help file.
 ``` r
 k = 2
 
-# The following works as intended, since the variable "k" is exported by 
+# The following works as intended since the variable "k" is exported by 
 # default to each worker.
 mc_replicate(10, rnorm(k))
 

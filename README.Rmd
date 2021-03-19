@@ -52,7 +52,7 @@ On Windows, **mcreplicate** relies on a parallel socket cluster backend. This re
 ```{r, eval=FALSE}
 k = 2
 
-# The following works as intended, since the variable "k" is exported by 
+# The following works as intended since the variable "k" is exported by 
 # default to each worker.
 mc_replicate(10, rnorm(k))
 
