@@ -40,6 +40,8 @@ mc_replicate <- function(n, expr, simplify = "array", mc.cores = detectCores(), 
         # Default exports
         if (missing(varlist)) {
             varlist = ls(envir=parent.frame())
+            print("varlist")
+            print(varlist)
         }
         if (missing(envir)) {
             envir = parent.frame()
@@ -56,7 +58,6 @@ mc_replicate <- function(n, expr, simplify = "array", mc.cores = detectCores(), 
         clusterEvalQ(cl, sapply(.mcreplicate.loaded.packages, function(package) require(package)))
 
         # Export variables
-        print(varlist)
         clusterExport(cl = cl, varlist = varlist, envir = envir)
 
         result <- parLapply(cl = cl, 1:n, function(i) eval(substitute(expr)))
