@@ -1,25 +1,27 @@
+---
+output:
+  github_document:
+    html_preview: false
+---
 
 # mcreplicate
 
 <!-- badges: start -->
-
 [![R-CMD-check](https://github.com/christophergandrud/mcreplicate/workflows/R-CMD-check/badge.svg)](https://github.com/christophergandrud/mcreplicate/actions)
 <!-- badges: end -->
 
 ## Purpose
 
-Multi-core replication to make Monte Carlo simulation faster more
-easily. Based on the `mcreplicate` function from the rethinking package.
-The [rethinking](https://github.com/rmcelreath/rethinking) package
-requires installing [rstan](https://cran.r-project.org/package=rstan),
-which can be a hurdle, while also not adding capabilities to this
-function.
+Multi-core replication to make Monte Carlo simulation faster more easily.
+Based on the `mcreplicate` function from the rethinking package. 
+The [rethinking](https://github.com/rmcelreath/rethinking) package requires installing [rstan](https://cran.r-project.org/package=rstan), 
+which can be a hurdle, while also not adding capabilities to this function.
 
 ## Installation
 
 Install the package from GitHub:
 
-``` r
+```r
 xfun::pkg_attach2("remotes")
 
 install_github("christophergandrud/mcreplicate")
@@ -29,7 +31,7 @@ install_github("christophergandrud/mcreplicate")
 
 It works just like `replicate()`, but distributes the replications.
 
-``` r
+```{r}
 library(mcreplicate)
 
 # Function to replicate
@@ -44,10 +46,6 @@ one_sim <- function(n, control_prob, rel_effect) {
 
 diff_means <- mcreplicate(10, one_sim(n = 100, control_prob = 0.1, 
                                       rel_effect = 0.01))
-```
 
-``` r
 diff_means
 ```
-
-    ##  [1]  0.08  0.05 -0.03 -0.01  0.07 -0.01  0.03 -0.02 -0.05  0.04
