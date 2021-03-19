@@ -2,12 +2,12 @@
 #'
 #' Use multiple cores for repeated evaluation of an expression. This also works on Windows using a parallel socket cluster (see notes below regarding Windows-specific usage).
 #'
-#' @usage mc_replicate(n, expr, mc.cores, simplify = "array", ...)
+#' @usage mc_replicate(n, expr, simplify = "array", mc.cores = detectCores(), ...)
 #'
 #' @param n integer; the number of replications.
 #' @param expr the expression (a language object, usually a call) to evaluate repeatedly.
-#' @param mc.cores number of cores to use.
 #' @param simplify logical or character string. See \link[base]{sapply} for more information.
+#' @param mc.cores number of cores to use.
 #' @param ... additional parameters for usage on Windows.
 #'
 #' @note On Windows, variables and packages needed for code execution must be explicitely specified. By default, all loaded packages are also loaded on the cluster's workers, and all variables from the current environment which do not start with a "." are exported. Use the following optional arguments to control how to populate each worker's environment:
@@ -33,7 +33,8 @@
 #' @references This is inspired from the rethinking package:
 #' <https://github.com/rmcelreath/rethinking/blob/3b48ec8dfda4840b9dce096d0cb9406589ef7923/R/utilities.r#L206
 #'
-#' @importFrom parallel mclapply detectCores makePSOCKcluster clusterExport parLapply stopCluster
+#' @importFrom parallel mclapply detectCores makePSOCKcluster clusterExport parLapply stopCluster clusterEvalQ
+#' @importFrom utils sessionInfo
 #' @export
 mc_replicate <- function(n, expr, simplify = "array", mc.cores = detectCores(), ...) {
     # check if windows and set cores to 1

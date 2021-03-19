@@ -4,7 +4,7 @@
 \alias{mc_replicate}
 \title{Multi-core replicate.}
 \usage{
-mc_replicate(n, expr, mc.cores, simplify = "array", ...)
+mc_replicate(n, expr, simplify = "array", mc.cores = detectCores(), ...)
 }
 \arguments{
 \item{n}{integer; the number of replications.}
