@@ -26,14 +26,14 @@ mc_replicate <- function(n, expr, refresh = 0.1, mc.cores = 2) {
         message("Only 1 core is supported on Windows.\nRunning sequentially.")
     }
 
-    show_progress <- function(i) {
+    show_progress <- function(i_) {
         intervaln <- floor(n * refresh)
-        if (floor(i/intervaln) == i/intervaln) {
-            cat(paste("[", i, "/", n, "]\r"))
+        if (floor(i_/intervaln) == i_/intervaln) {
+            cat(paste("[", i_, "/", n, "]\r"))
         }
     }
-    result <- simplify2array(mclapply(1:n, eval.parent(substitute(function(i, ...) {
-        if (refresh > 0) show_progress(i)
+    result <- simplify2array(mclapply(1:n, eval.parent(substitute(function(i_, ...) {
+        if (refresh > 0) show_progress(i_)
         expr
     })), mc.cores = mc.cores))
     if (refresh > 0)
