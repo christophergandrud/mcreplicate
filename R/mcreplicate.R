@@ -6,9 +6,8 @@
 #' @param n integer; the number of replications.
 #' @param expr the expression (a language object, usually a call) to evaluate
 #' repeatedly.
-#' @param simplify logical or character string. See \link[base]{sapply} for more
-#' information.
 #' @param mc.cores number of cores to use.
+#' @param refresh Not on Windows! status update refresh interval
 #' @param varlist Only used on Windows! Character vector of variable names to
 #' export on each worker. Default is all variables in the current environment
 #' which do not begin with a ".". See \link[parallel]{clusterExport} for more
@@ -31,20 +30,25 @@
 #'   mc_replicate(10, one_sim(), mc.cores = 2)
 #'
 #'   # On Windows, when no particular packages or additional variables are needed
-#'   mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL,
-#'                varlist = "one_sim", envir = environment())
+#'  # mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL,
+#'  #              varlist = "one_sim", envir = environment())
 #'
-#' @references This is inspired from the rethinking package:
-#' <https://github.com/rmcelreath/rethinking/blob/3b48ec8dfda4840b9dce096d0cb9406589ef7923/R/utilities.r#L206
+#' @returns  A vector, matrix, or list of length `n`.
+#'
+#' @source Modified from: Richard McElreath (2020). rethinking: Statistical
+#' Rethinking book package. R package version 2.13.
+#' <https://github.com/rmcelreath/rethinking>
 #'
 #' @importFrom parallel mclapply detectCores makePSOCKcluster clusterExport parLapply stopCluster clusterEvalQ
 #' @importFrom utils sessionInfo
+#' 
 #' @export
+#' @md
 
 mc_replicate <- function(n,
                          expr,
-                         simplify = "array",
                          mc.cores = detectCores(),
+                         refresh = 0.1,
                          varlist,
                          envir,
                          packages) {
@@ -58,6 +62,7 @@ mc_replicate <- function(n,
             varlist = ls(envir = parent.frame())
             print("varlist")
             print(varlist)
+
         }
         if (missing(envir)) {
             envir = parent.frame()
@@ -82,11 +87,19 @@ mc_replicate <- function(n,
         stopCluster(cl)
 
     } else {
-        result <- mclapply(1:n, function(i) eval(substitute(expr)), mc.cores = mc.cores)
-    }
-
-    if (!isFALSE(simplify) && length(result))
-        simplify2array(result, higher = (simplify == "array"))
-    else result
+        show_progress <- function(i_) {
+            intervaln <- floor(n * refresh)
+            if (floor(i_/intervaln) == i_/intervaln) {
+                cat(paste("[", i_, "/", n, "]\r"))
+        }
+        }
+        result <- simplify2array(mclapply(1:n, eval.parent(substitute(function(i_, ...) {
+            if (refresh > 0) show_progress(i_)
+            expr
+        })), mc.cores = mc.cores))
+        if (refresh > 0)
+            cat("\n")
+        }
+    result
 }
 

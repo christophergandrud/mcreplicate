@@ -1,12 +1,17 @@
 Package: mcreplicate
-Description: Multi-core functionality for the repeated evaluation of an expression. It allows easy parallelization on all platforms, including on Windows.
+Description: Multi-core replication function to make it easier to do fast 
+  Monte Carlo simulation. Based on the mcreplicate() function from the 
+  'rethinking' package. The 'rethinking' package requires installing 'rstan', 
+  which is onerous to install, while also not adding capabilities to this 
+  function.
 Title: Multi-Core Replicate
-Version: 0.1.0
-Date: 2021-03-19
+Version: 0.1.2
+Date: 2021-05-29
 Authors@R: c(
     person("Christopher", "Gandrud", email = "christopher.gandrud@gmail.com",
     role = c("aut", "cre")),
-    person("Olivier", "Binette", email = "olivier.binette@gmail.com", role=c("ctb"))
+    person("Olivier", "Binette", email = "olivier.binette@gmail.com", 
+    role=c("ctb"))
     )
 Imports:
   parallel
@@ -14,3 +19,7 @@ License: AGPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
+Suggests: 
+    testthat (>= 3.0.0),
+    covr
+Config/testthat/edition: 3

@@ -3,12 +3,17 @@
 \name{mc_replicate}
 \alias{mc_replicate}
 \title{Multi-core replicate.}
+\source{
+Modified from: Richard McElreath (2020). rethinking: Statistical
+Rethinking book package. R package version 2.13.
+\url{https://github.com/rmcelreath/rethinking}
+}
 \usage{
 mc_replicate(
   n,
   expr,
-  simplify = "array",
   mc.cores = detectCores(),
+  refresh = 0.1,
   varlist,
   envir,
   packages
@@ -20,10 +25,9 @@ mc_replicate(
 \item{expr}{the expression (a language object, usually a call) to evaluate
 repeatedly.}
 
-\item{simplify}{logical or character string. See \link[base]{sapply} for more
-information.}
-
 \item{mc.cores}{number of cores to use.}
+
+\item{refresh}{Not on Windows! status update refresh interval}
 
 \item{varlist}{Only used on Windows! Character vector of variable names to
 export on each worker. Default is all variables in the current environment
@@ -37,6 +41,9 @@ See \link[parallel]{clusterExport} for more information.}
 \item{packages}{Only used on Windows! Environment from which  to export
 variables. Default is all loaded packages. See \link[parallel]{clusterExport}
 for more information.}
+}
+\value{
+A vector, matrix, or list of length \code{n}.
 }
 \description{
 Use multiple cores for repeated evaluation of an expression.
@@ -53,11 +60,7 @@ one_sim <- function(n = 100, control_prob = 0.1, rel_effect = 0.01) {
   mc_replicate(10, one_sim(), mc.cores = 2)
 
   # On Windows, when no particular packages or additional variables are needed
-  mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL,
-               varlist = "one_sim", envir = environment())
+ # mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL,
+ #              varlist = "one_sim", envir = environment())
 
-}
-\references{
-This is inspired from the rethinking package:
-<https://github.com/rmcelreath/rethinking/blob/3b48ec8dfda4840b9dce096d0cb9406589ef7923/R/utilities.r#L206
 }
