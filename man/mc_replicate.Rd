@@ -4,25 +4,43 @@
 \alias{mc_replicate}
 \title{Multi-core replicate.}
 \usage{
-mc_replicate(n, expr, simplify = "array", mc.cores = detectCores(), varlist = FALSE, envir = FALSE, packages = FALSE)
+mc_replicate(
+  n,
+  expr,
+  simplify = "array",
+  mc.cores = detectCores(),
+  varlist,
+  envir,
+  packages
+)
 }
 \arguments{
 \item{n}{integer; the number of replications.}
 
-\item{expr}{the expression (a language object, usually a call) to evaluate repeatedly.}
+\item{expr}{the expression (a language object, usually a call) to evaluate
+repeatedly.}
 
-\item{simplify}{logical or character string. See \link[base]{sapply} for more information.}
+\item{simplify}{logical or character string. See \link[base]{sapply} for more
+information.}
 
 \item{mc.cores}{number of cores to use.}
 
-\item{varlist}{Only used on Windows. character vector of variable names to export on each worker. Default is all variables in the current environment which do not begin with a ".". See \link[parallel]{clusterExport} for more information.}
+\item{varlist}{Only used on Windows! Character vector of variable names to
+export on each worker. Default is all variables in the current environment
+which do not begin with a ".". See \link[parallel]{clusterExport} for more
+information.}
 
-\item{envir}{Only used on Windows. Environment from which  to export variables. Default is the environment from which this function was called. See \link[parallel]{clusterExport} for more information.}
+\item{envir}{Only used on Windows! Environment from which  to export
+variables. Default is the environment from which this function was called.
+See \link[parallel]{clusterExport} for more information.}
 
-\item{packages}{Only used on Windows. Environment from which  to export variables. Default is all loaded packages. See \link[parallel]{clusterExport} for more information.}
+\item{packages}{Only used on Windows! Environment from which  to export
+variables. Default is all loaded packages. See \link[parallel]{clusterExport}
+for more information.}
 }
 \description{
-Use multiple cores for repeated evaluation of an expression. This also works on Windows using a parallel socket cluster (see below regarding Windows-specific usage).
+Use multiple cores for repeated evaluation of an expression.
+This also works on Windows using a parallel socket cluster.
 }
 \examples{
 one_sim <- function(n = 100, control_prob = 0.1, rel_effect = 0.01) {
@@ -35,7 +53,8 @@ one_sim <- function(n = 100, control_prob = 0.1, rel_effect = 0.01) {
   mc_replicate(10, one_sim(), mc.cores = 2)
 
   # On Windows, when no particular packages or additional variables are needed
-  mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL, varlist = "one_sim", envir = environment())
+  mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL,
+               varlist = "one_sim", envir = environment())
 
 }
 \references{

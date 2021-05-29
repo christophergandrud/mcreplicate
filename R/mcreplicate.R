@@ -1,16 +1,24 @@
 #' Multi-core replicate.
 #'
-#' Use multiple cores for repeated evaluation of an expression. This also works on Windows using a parallel socket cluster (see below regarding Windows-specific usage).
-#'
-#' @usage mc_replicate(n, expr, simplify = "array", mc.cores = detectCores(), varlist = FALSE, envir = FALSE, packages = FALSE)
+#' Use multiple cores for repeated evaluation of an expression.
+#' This also works on Windows using a parallel socket cluster.
 #'
 #' @param n integer; the number of replications.
-#' @param expr the expression (a language object, usually a call) to evaluate repeatedly.
-#' @param simplify logical or character string. See \link[base]{sapply} for more information.
+#' @param expr the expression (a language object, usually a call) to evaluate
+#' repeatedly.
+#' @param simplify logical or character string. See \link[base]{sapply} for more
+#' information.
 #' @param mc.cores number of cores to use.
-#' @param varlist Only used on Windows. character vector of variable names to export on each worker. Default is all variables in the current environment which do not begin with a ".". See \link[parallel]{clusterExport} for more information.
-#' @param envir Only used on Windows. Environment from which  to export variables. Default is the environment from which this function was called. See \link[parallel]{clusterExport} for more information.
-#' @param packages Only used on Windows. Environment from which  to export variables. Default is all loaded packages. See \link[parallel]{clusterExport} for more information.
+#' @param varlist Only used on Windows! Character vector of variable names to
+#' export on each worker. Default is all variables in the current environment
+#' which do not begin with a ".". See \link[parallel]{clusterExport} for more
+#' information.
+#' @param envir Only used on Windows! Environment from which  to export
+#' variables. Default is the environment from which this function was called.
+#' See \link[parallel]{clusterExport} for more information.
+#' @param packages Only used on Windows! Environment from which  to export
+#' variables. Default is all loaded packages. See \link[parallel]{clusterExport}
+#' for more information.
 #'
 #' @examples
 #' one_sim <- function(n = 100, control_prob = 0.1, rel_effect = 0.01) {
@@ -23,7 +31,8 @@
 #'   mc_replicate(10, one_sim(), mc.cores = 2)
 #'
 #'   # On Windows, when no particular packages or additional variables are needed
-#'   mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL, varlist = "one_sim", envir = environment())
+#'   mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL,
+#'                varlist = "one_sim", envir = environment())
 #'
 #' @references This is inspired from the rethinking package:
 #' <https://github.com/rmcelreath/rethinking/blob/3b48ec8dfda4840b9dce096d0cb9406589ef7923/R/utilities.r#L206
@@ -31,22 +40,29 @@
 #' @importFrom parallel mclapply detectCores makePSOCKcluster clusterExport parLapply stopCluster clusterEvalQ
 #' @importFrom utils sessionInfo
 #' @export
-mc_replicate <- function(n, expr, simplify = "array", mc.cores = detectCores(), varlist = FALSE, envir = FALSE, packages = FALSE) {
-    # check if windows and set cores to 1
+
+mc_replicate <- function(n,
+                         expr,
+                         simplify = "array",
+                         mc.cores = detectCores(),
+                         varlist,
+                         envir,
+                         packages) {
     if (.Platform$OS.type == "windows" && mc.cores > 1) {
-        cat("Running parallel code on Windows: a parallel socket cluster will be used.\n")
-        cat("Variables and packages needed for code execution must be explicitely specified. See the help file for more information and current defaults.\n")
+        message("Running parallel code on Windows: a parallel socket cluster will be used.\n")
+        message("Variables and packages needed for code execution must be explicitely specified.\n")
+        message("See the help file for more information and current defaults.\n")
 
         # Default exports
-        if (isFALSE(varlist)) {
-            varlist = ls(envir=parent.frame())
+        if (missing(varlist)) {
+            varlist = ls(envir = parent.frame())
             print("varlist")
             print(varlist)
         }
-        if (isFALSE(envir)) {
+        if (missing(envir)) {
             envir = parent.frame()
         }
-        if (isFALSE(packages)) {
+        if (missing(packages)) {
             packages = c(sessionInfo()$basePkgs, names(sessionInfo()$otherPkgs))
         }
 
@@ -54,8 +70,10 @@ mc_replicate <- function(n, expr, simplify = "array", mc.cores = detectCores(), 
 
         # Export packages
         .mcreplicate.loaded.packages = packages
-        clusterExport(cl = cl, varlist = ".mcreplicate.loaded.packages", envir=environment())
-        clusterEvalQ(cl, sapply(.mcreplicate.loaded.packages, function(package) require(package)))
+        clusterExport(cl = cl, varlist = ".mcreplicate.loaded.packages",
+                      envir = environment())
+        clusterEvalQ(cl, sapply(.mcreplicate.loaded.packages,
+                                function(package) require(package)))
 
         # Export variables
         clusterExport(cl = cl, varlist = varlist, envir = envir)
