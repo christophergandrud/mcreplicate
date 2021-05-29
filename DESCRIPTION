@@ -11,7 +11,8 @@ Authors@R: c(
     person("Christopher", "Gandrud", email = "christopher.gandrud@gmail.com",
     role = c("aut", "cre")),
     person("Olivier", "Binette", email = "olivier.binette@gmail.com", 
-    role=c("ctb"))
+    role=c("ctb")),
+    person("AUTUMN41", role=c("ctb"))
     )
 Imports:
   parallel
