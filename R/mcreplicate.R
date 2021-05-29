@@ -1,5 +1,4 @@
-#' Multi-core replicate. From the rethinking package:
-#' <https://github.com/rmcelreath/rethinking/blob/3b48ec8dfda4840b9dce096d0cb9406589ef7923/R/utilities.r#L206>
+#' Multi-core replicate.
 #'
 #' @param n integer: the number of replications.
 #' @param expr the expression (a language object, usually a call) to evaluate repeatedly.
@@ -16,8 +15,15 @@
 #'
 #'   mc_replicate(10, one_sim(n = 100, control_prob = 0.1, rel_effect = 0.01))
 #'
+#' @returns  A vector, matrix, or list of length `n`.
+#'
+#' @source Modified from: Richard McElreath (2020). rethinking: Statistical
+#' Rethinking book package. R package version 2.13.
+#' <https://github.com/rmcelreath/rethinking>
+#'
 #' @importFrom parallel mclapply
 #' @export
+#' @md
 
 mc_replicate <- function(n, expr, refresh = 0.1, mc.cores = 2) {
     # check if windows and set cores to 1

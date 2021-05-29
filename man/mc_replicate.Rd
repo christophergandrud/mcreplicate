@@ -2,8 +2,12 @@
 % Please edit documentation in R/mcreplicate.R
 \name{mc_replicate}
 \alias{mc_replicate}
-\title{Multi-core replicate. From the rethinking package:
-<https://github.com/rmcelreath/rethinking/blob/3b48ec8dfda4840b9dce096d0cb9406589ef7923/R/utilities.r#L206>}
+\title{Multi-core replicate.}
+\source{
+Modified from: Richard McElreath (2020). rethinking: Statistical
+Rethinking book package. R package version 2.13.
+\url{https://github.com/rmcelreath/rethinking}
+}
 \usage{
 mc_replicate(n, expr, refresh = 0.1, mc.cores = 2)
 }
@@ -16,9 +20,11 @@ mc_replicate(n, expr, refresh = 0.1, mc.cores = 2)
 
 \item{mc.cores}{number of cores to use}
 }
+\value{
+A vector, matrix, or list of length \code{n}.
+}
 \description{
-Multi-core replicate. From the rethinking package:
-<https://github.com/rmcelreath/rethinking/blob/3b48ec8dfda4840b9dce096d0cb9406589ef7923/R/utilities.r#L206>
+Multi-core replicate.
 }
 \examples{
 one_sim <- function(n, control_prob, rel_effect) {

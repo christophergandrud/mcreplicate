@@ -9,7 +9,7 @@ output:
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/christophergandrud/mcreplicate/workflows/R-CMD-check/badge.svg)](https://github.com/christophergandrud/mcreplicate/actions)
 [![Codecov test coverage](https://codecov.io/gh/christophergandrud/mcreplicate/branch/main/graph/badge.svg)](https://codecov.io/gh/christophergandrud/mcreplicate?branch=main)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 ## Purpose

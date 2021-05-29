@@ -7,7 +7,7 @@
 [![Codecov test
 coverage](https://codecov.io/gh/christophergandrud/mcreplicate/branch/main/graph/badge.svg)](https://codecov.io/gh/christophergandrud/mcreplicate?branch=main)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 ## Purpose
@@ -57,4 +57,4 @@ diff_means <- mc_replicate(10, one_sim(n = 100, control_prob = 0.1,
 diff_means
 ```
 
-    ##  [1] -0.03 -0.01 -0.09  0.07 -0.06 -0.07  0.00  0.00  0.05 -0.02
+    ##  [1]  0.01  0.00  0.02  0.04  0.03 -0.04 -0.02  0.02 -0.04 -0.02
