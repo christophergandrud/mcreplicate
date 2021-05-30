@@ -41,7 +41,7 @@
 #'
 #' @importFrom parallel mclapply detectCores makePSOCKcluster clusterExport parLapply stopCluster clusterEvalQ
 #' @importFrom utils sessionInfo
-#' 
+#'
 #' @export
 #' @md
 
@@ -59,22 +59,22 @@ mc_replicate <- function(n,
 
         # Default exports
         if (missing(varlist)) {
-            varlist = ls(envir = parent.frame())
+            varlist <- ls(envir = parent.frame())
             print("varlist")
             print(varlist)
 
         }
         if (missing(envir)) {
-            envir = parent.frame()
+            envir <- parent.frame()
         }
         if (missing(packages)) {
-            packages = c(sessionInfo()$basePkgs, names(sessionInfo()$otherPkgs))
+            packages <- c(sessionInfo()$basePkgs, names(sessionInfo()$otherPkgs))
         }
 
         cl <- parallel::makePSOCKcluster(mc.cores)
 
         # Export packages
-        .mcreplicate.loaded.packages = packages
+        .mcreplicate.loaded.packages <- packages
         clusterExport(cl = cl, varlist = ".mcreplicate.loaded.packages",
                       envir = environment())
         clusterEvalQ(cl, sapply(.mcreplicate.loaded.packages,
@@ -83,15 +83,21 @@ mc_replicate <- function(n,
         # Export variables
         clusterExport(cl = cl, varlist = varlist, envir = envir)
 
-        result <- parLapply(cl = cl, 1:n, function(i) eval(substitute(expr)))
+        result <- parLapply(cl = cl, 1:n, eval.parent(substitute(function(...){
+            expr
+        })))
+
+#        result <- parLapply(cl = cl, 1:n, eval(substitute(expr)))
         stopCluster(cl)
+
+        simplify2array(result, higher = (simplify == "array"))
 
     } else {
         show_progress <- function(i_) {
             intervaln <- floor(n * refresh)
             if (floor(i_/intervaln) == i_/intervaln) {
                 cat(paste("[", i_, "/", n, "]\r"))
-        }
+            }
         }
         result <- simplify2array(mclapply(1:n, eval.parent(substitute(function(i_, ...) {
             if (refresh > 0) show_progress(i_)
@@ -99,7 +105,7 @@ mc_replicate <- function(n,
         })), mc.cores = mc.cores))
         if (refresh > 0)
             cat("\n")
-        }
-    result
+        result
+    }
 }
 
