@@ -13,10 +13,11 @@ mc_replicate(
   n,
   expr,
   mc.cores = detectCores(),
-  refresh = 0.1,
+  cluster,
   varlist,
   envir,
-  packages
+  packages,
+  refresh = 0.1
 )
 }
 \arguments{
@@ -27,7 +28,9 @@ repeatedly.}
 
 \item{mc.cores}{number of cores to use.}
 
-\item{refresh}{Not on Windows! status update refresh interval}
+\item{cluster}{logical. If \code{TRUE} then clustering, rather than forking,
+is used to replicate the specified function in parallel. Note: if you
+are using Windows, only cluster is available.}
 
 \item{varlist}{Only used on Windows! Character vector of variable names to
 export on each worker. Default is all variables in the current environment
@@ -41,6 +44,8 @@ See \link[parallel]{clusterExport} for more information.}
 \item{packages}{Only used on Windows! Environment from which  to export
 variables. Default is all loaded packages. See \link[parallel]{clusterExport}
 for more information.}
+
+\item{refresh}{Not on Windows! status update refresh interval}
 }
 \value{
 A vector, matrix, or list of length \code{n}.
