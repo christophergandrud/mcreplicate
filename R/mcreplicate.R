@@ -8,8 +8,8 @@
 #' repeatedly.
 #' @param mc.cores number of cores to use.
 #' @param cluster logical. If \code{TRUE} then clustering, rather than forking,
-#' is used to replicate the specified function in parallel. Note: if you 
-#' are using Windows, only cluster is available. 
+#' is used to replicate the specified function in parallel. Note: if you
+#' are using Windows, only cluster is available.
 #' @param varlist Only used on Windows! Character vector of variable names to
 #' export on each worker. Default is all variables in the current environment
 #' which do not begin with a ".". See \link[parallel]{clusterExport} for more
