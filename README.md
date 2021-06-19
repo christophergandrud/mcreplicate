@@ -2,9 +2,6 @@
 # mcreplicate: Multi-Core Replications
 
 <!-- badges: start -->
-
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R-CMD-check](https://github.com/christophergandrud/mcreplicate/workflows/R-CMD-check/badge.svg)](https://github.com/christophergandrud/mcreplicate/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/christophergandrud/mcreplicate/branch/main/graph/badge.svg)](https://codecov.io/gh/christophergandrud/mcreplicate?branch=main)
