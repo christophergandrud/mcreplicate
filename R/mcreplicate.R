@@ -32,9 +32,11 @@
 #'
 #'   mc_replicate(10, one_sim(), mc.cores = 2)
 #'
-#'   # On Windows, when no particular packages or additional variables are needed
-#'  # mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL,
-#'  #              varlist = "one_sim", envir = environment())
+#' \dontrun{
+#'  On Windows, when no particular packages or additional variables are needed
+#'  mc_replicate(10, one_sim(), , mc.cores = 2, packages = NULL,
+#'                varlist = "one_sim", envir = environment())
+#' }
 #'
 #' @returns  A vector, matrix, or list of length `n`.
 #'

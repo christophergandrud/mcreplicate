@@ -1,3 +1,7 @@
+# mcreplciate 0.1.2.1
+
+* Minor documentation improvements
+
 # mcreplciate 0.1.2
 
 * Enabled Windows multi-core support. Thank you to OlivierBinette and
